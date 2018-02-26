@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-
+#include <iostream>
 #include "scene3d.hpp"
 
 namespace scefig
@@ -20,14 +20,22 @@ namespace scefig
 		}
 
 
-		void Scene3D::TransformNode::getShapes(std::vector<Shape*> shapes) const
+		void Scene3D::TransformNode::getShapes(std::vector<const Shape*> & shapes) const
 		{
-			shapes.clear();
+			//shapes.clear();
+			for(std::vector<const Shape*>::const_iterator shapeIt = m_shapes.begin(); shapeIt != m_shapes.end(); ++shapeIt)
+			{
+				//std::cout << "shape " << (*shapeIt)->getLabel() << std::endl;
+				shapes.push_back(*shapeIt);
+			}
+
 			for(std::vector<TransformNode*>::const_iterator childIt = m_children.begin(); childIt != m_children.end(); ++childIt)
 			{
 				const TransformNode* pChildTransformNode = *childIt;
-				const std::vector<Shape*> childShapes = pChildTransformNode->m_shapes;
-				for(std::vector<Shape*>::const_iterator shapeIt = childShapes.begin(); shapeIt != childShapes.end(); ++shapeIt)
+
+				std::vector<const Shape*> childShapes;
+				pChildTransformNode->getShapes(childShapes);
+				for(std::vector<const Shape*>::const_iterator shapeIt = childShapes.begin(); shapeIt != childShapes.end(); ++shapeIt)
 				{
 					shapes.push_back(*shapeIt);
 				}
@@ -44,7 +52,7 @@ namespace scefig
 	// PointShape
 		Scene3D::PointShape::PointShape(const LabelType & label, const Vector3 & values) : super(label), m_position(values) {}
 
-		void Scene3D::PointShape::visit( IShapeVisitor & shapeVisitor)
+		void Scene3D::PointShape::visit( IShapeVisitor & shapeVisitor) const
 		{
 			shapeVisitor.visitPoint(*this);
 		}
@@ -52,7 +60,7 @@ namespace scefig
 	// PolyLine
 
 		Scene3D::PolyLineShape::PolyLineShape(const LabelType & label) : super(label), m_polyLine() {}
-		void Scene3D::PolyLineShape::visit( IShapeVisitor & shapeVisitor)
+		void Scene3D::PolyLineShape::visit( IShapeVisitor & shapeVisitor) const
 		{
 			shapeVisitor.visitPolyLine(*this);
 		}
@@ -83,7 +91,7 @@ namespace scefig
 
 		}
 
-		void Scene3D::PlaneShape::visit( IShapeVisitor & shapeVisitor)
+		void Scene3D::PlaneShape::visit( IShapeVisitor & shapeVisitor) const
 		{
 			shapeVisitor.visitPlane(*this);
 		}

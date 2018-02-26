@@ -45,7 +45,7 @@ namespace scefig
 
 			void addChildTransform(TransformNode* pChild);
 
-			void getShapes(std::vector<Shape*> shapes) const;
+			void getShapes(std::vector<const Shape*> & shapes) const;
 
 		protected:
 			Transform m_transform;
@@ -61,7 +61,7 @@ namespace scefig
 			const LabelType & getLabel(void) const {return m_label;}
 			void setTransformNode(TransformNode & transformNode) { m_pTransformNode = &transformNode; }
 
-			virtual void visit( IShapeVisitor & shapeVisitor) = 0;
+			virtual void visit( IShapeVisitor & shapeVisitor) const = 0;
 		private:
 			LabelType m_label;
 			TransformNode* m_pTransformNode;
@@ -73,7 +73,7 @@ namespace scefig
 			typedef scefig::Scene3D::Shape super;
 			PointShape(const LabelType & label, const Vector3 & values);
 
-			virtual void visit( IShapeVisitor & shapeVisitor);
+			virtual void visit( IShapeVisitor & shapeVisitor) const;
 
 			const Vector3 & getPosition(void) const {return m_position;}
 		private:
@@ -85,7 +85,7 @@ namespace scefig
 		public:
 			typedef scefig::Scene3D::Shape super;
 			PolyLineShape(const LabelType & label);
-			virtual void visit( IShapeVisitor & shapeVisitor);
+			virtual void visit( IShapeVisitor & shapeVisitor) const;
 			const scefig::PolyLine & getPolyLine(void) const {return m_polyLine;}
 
 			void appendVertex(const Vector3 & vertex);
@@ -105,7 +105,7 @@ namespace scefig
 		{
 		public:
 			PlaneShape(const LabelType & label, const Plane & plane);
-			virtual void visit( IShapeVisitor & shapeVisitor);
+			virtual void visit( IShapeVisitor & shapeVisitor) const;
 			const Plane & getPlane(void) const;
 		protected:
 			Plane m_plane;
@@ -115,7 +115,7 @@ namespace scefig
 
 		TransformNode & getRootNode(void) {return m_rootNode;}
 
-		void getShapes(std::vector<Shape*> shapes) const { m_rootNode.getShapes(shapes); }
+		void getShapes(std::vector<const Shape*> & shapes) const { m_rootNode.getShapes(shapes); }
 
 		//Point3D * createPoint(const LabelType & label, const Vector3f & values);
 	protected:

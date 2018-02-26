@@ -23,7 +23,7 @@ message("install_dir=${install_dir}")
 
 # target_link_libraries(project_b_exe ${install_dir}/lib/alib.lib)
 
-add_library(scefig scene3d.cpp polyline.cpp plane.cpp)
+add_library(scefig scene3d.cpp polyline.cpp plane.cpp asymptoterenderer.cpp geom.cpp)
 add_dependencies(scefig eigen)
 
 add_executable(unittest1 unittest1.cpp)

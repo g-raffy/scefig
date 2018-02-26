@@ -18,6 +18,7 @@ namespace scefig
 		PolyLine( void );
 
 		void appendVertex(const Vector3 & vertex);
+		const std::vector<Vector3> & getVertices(void) const {return m_vertices;}
 
 		bool isClosed(void) const;
 

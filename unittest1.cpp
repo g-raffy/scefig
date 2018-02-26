@@ -1,6 +1,8 @@
 #include "scene3d.hpp"
 #include "polyline.hpp"
 #include "plane.hpp"
+#include "asymptoterenderer.hpp"
+
 using scefig::Scene3D;
 typedef scefig::Scene3D::PointShape PointShape;
 typedef scefig::Scene3D::PolyLineShape PolyLineShape;
@@ -31,9 +33,10 @@ void makeFigure1(void)
 	TransformNode* pT3 = new TransformNode();
 	pT3->addShape(pPlane);
 	scene.getRootNode().addChildTransform(pT3);
-	/*
-	AsymptoteRenderer.AsymptoteRenderer().renderScene( scene, 'Figure1.asy' )
-	*/
+
+	scefig::AsymptoteRenderer renderer;
+	renderer.renderScene(scene, "Figure1.asy" );
+
 }
 
 int main(int argc, char* argv[])

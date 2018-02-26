@@ -23,7 +23,7 @@ namespace scefig
 		Plane(const Plane & other);
 
 		Vector3 getNormal(void) const;
-
+		const Vector4 & getParams(void) const {return m_params;}
 	protected:
 		Vector4 m_params;
 	};
