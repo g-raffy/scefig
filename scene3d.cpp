@@ -23,7 +23,7 @@ namespace scefig
 		void Scene3D::TransformNode::getShapes(std::vector<const Shape*> & shapes) const
 		{
 			//shapes.clear();
-			for(std::vector<const Shape*>::const_iterator shapeIt = m_shapes.begin(); shapeIt != m_shapes.end(); ++shapeIt)
+			for(std::vector<Shape*>::const_iterator shapeIt = m_shapes.begin(); shapeIt != m_shapes.end(); ++shapeIt)
 			{
 				//std::cout << "shape " << (*shapeIt)->getLabel() << std::endl;
 				shapes.push_back(*shapeIt);
