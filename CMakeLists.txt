@@ -36,11 +36,11 @@ endmacro(use_cxx11)
 use_cxx11()
 
 
-add_library(scefig scene3d.cpp polyline.cpp plane.cpp asymptoterenderer.cpp geom.cpp)
-add_dependencies(scefig eigen)
+add_library(libscefig scene3d.cpp polyline.cpp plane.cpp asymptoterenderer.cpp geom.cpp)
+add_dependencies(libscefig eigen)
 
 add_executable(unittest1 unittest1.cpp)
 add_dependencies(unittest1 eigen)
-target_link_libraries(unittest1 scefig)
+target_link_libraries(unittest1 libscefig)
 
 
